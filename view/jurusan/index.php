@@ -2,10 +2,10 @@
 	require "../../config/koneksi.php";
 	require "../../class/jurusan.class.php";
 
-/*	if($_SESSION['username'] == NULL){
+	if($_SESSION['username'] == NULL){
 		header("location:../auth/login.php");	
 	}
-*/
+
 	
 	$jurusan = new Jurusan(Database::connect());
 

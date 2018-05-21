@@ -2,10 +2,10 @@
 	require "../../config/koneksi.php";
 	require "../../class/CalonMahasiswa.class.php";
 
-/*	if($_SESSION['username'] == NULL){
+	if($_SESSION['username'] == NULL){
 		header("location:../auth/login.php");	
 	}
-*/
+
 	
 	$cmhs = new CalonMahasiswa(Database::connect());
 
@@ -23,7 +23,7 @@
   <table class="table">
   <thead>
     <tr>
-      <th scope="col"> No </th>
+     <!-- <th scope="col"> No </th> -->
       <th scope="col"> Nama </th>
       <th scope="col"> Jenis Kelamin </th>
       <th scope="col"> Telepon </th>
@@ -36,7 +36,7 @@
 	<?php
 		while($row = $result->fetchObject()) {
 			echo '<tr>';
-			echo '<td> '.$row->NO_PENDAFTARAN.'</td>';
+			//echo '<td> '.$row->NO_PENDAFTARAN.'</td>';
 			echo '<td>'.$row->NAMA.' ('.$row->JK.')</td>';
 			echo '<td>'.$row->JK.'</td>';
 			echo '<td> '.$row->NO_TELP.'</td>';

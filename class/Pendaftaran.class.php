@@ -23,6 +23,19 @@ class Pendaftaran {
 		$this->dokumen = new Dokumen($db);
 	}
 
+	public function getId($id)
+    {
+        $query = "SELECT * FROM pendaftaran WHERE user_id = ?";
+        $action = $this->db->prepare($query);
+        $value = array($id);
+
+        $action->execute($value);
+
+        $result = $action->fetchObject();
+
+        return $result->ID;
+    }
+
 	public function store() {
 		$query = "INSERT INTO pendaftaran(user_id, calon_mahasiswa_id, jurusan_id, dokumen_id, jalur, tgl_daftar, no_pendaftaran)
 							VALUES(?, ?, ?, ?, ?, current_date, ?)";
@@ -62,6 +75,22 @@ class Pendaftaran {
 		$query = "DELETE FROM pendaftaran WHERE id = ?";
 		$action = $this->db->prepare($query);
 		$value = array($this->id);
+		$exec = $action->execute($value);
+
+		if ($exec) {
+			return true;
+		} else {
+			$errors = $action->errorInfo();
+			echo ($errors[2]);
+
+			return false;
+		}
+	}
+
+	public function setDokumen() {
+		$query = "UPDATE pendaftaran SET dokumen_id = ? WHERE id = ?";
+		$action = $this->db->prepare($query);
+		$value = array($this->dokumen->id, $this->id);
 		$exec = $action->execute($value);
 
 		if ($exec) {

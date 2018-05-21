@@ -1,11 +1,19 @@
 <?php
+	require "../../config/koneksi.php";
+
 	include "../app/header.php";
 ?>
 
 <div class="container">	
 	<form action="../../controller/Dokumen.controller.php" method="POST" enctype="multipart/form-data">
 	  <div class="form-group">
-	  	<input type="hidden" value="<?php $_GET['no']; ?>" name="no_pendaftaran">
+	  <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+	    <label for="exampleInputEmail1">Nomer Pendaftaran</label>
+	    <input type="text" class="form-control" name="no_pendaftaran" placeholder="Masukan Nomer Pendaftaran" readonly="" 
+	    value="<?php echo $_GET['jurusan'].date("Y").date("m").date("d").$_GET['id']; ?>">
+	  </div>
+	  <div class="form-group">
+	  
 	    <label for="exampleInputEmail1">Ijazah</label>
 	    <input type="file" class="form-control-file" name="ijazah">
 	  </div>

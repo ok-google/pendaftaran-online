@@ -1,9 +1,10 @@
 <?php
 	session_start();
-	/*$_SESSION['username'] = $_SESSION['username'];
+	$_SESSION['username'] = $_SESSION['username'];
+	$_SESSION['email'] = $_SESSION['email'];
 	$_SESSION['id'] = $_SESSION['id'];
-	$_SESSION['role'] = $_SESSION['role'];*/
-	
+	$_SESSION['role'] = $_SESSION['role'];
+
 	class Database{
 	    private static $host = '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = "localhost")(PORT = "1522")) (CONNECT_DATA = (SERVICE_NAME = ORACLE) (SID = xe)))';
 	    //private static $dbname = 'jarkom_project';

@@ -1,13 +1,16 @@
 <?php
+	require "../../config/koneksi.php";
+	require "../../class/jurusan.class.php";
+
+	$jurusan = new Jurusan(Database::connect());
+
+	$result = $jurusan->all();
+
 	include "../app/header.php";
 ?>
 
 <div class="container">	
 	<form action="../../controller/CalonMahasiswa.controller.php" method="POST">
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Nomer Pendaftaran</label>
-	    <input type="text" class="form-control" name="no_pendaftaran" placeholder="Masukan Nomer Pendaftaran">
-	  </div>
 
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Jalur Pendaftaran</label>
@@ -17,6 +20,18 @@
 	    	<option value='beasiswa'> Beasiswa </option>
 	    	<option value='transferd3'> Transfer D3 </option>
 	    	<option value='transfers1'> Transfer S1 </option>
+	    </select>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Jurusan</label>
+	    <select class="form-control" name="jurusan_id">
+	    	<?php 
+	    		while($value = $result->fetchObject()){ 
+	    			echo '<option value='.$value->ID.'>'. $value->NAMA.' </option>';
+	    		}
+	    	?>
+
 	    </select>
 	  </div>
 

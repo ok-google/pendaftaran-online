@@ -1,14 +1,16 @@
 <?php
 
 	require "../config/koneksi.php";
-	require "../class/CalonMahasiswa.class.php";
+	//require "../class/CalonMahasiswa.class.php";
+	require "../class/Pendaftaran.class.php";
 
 	$cmhs = new CalonMahasiswa(Database::connect());
+	$pendaftaran = new Pendaftaran(Database::connect());
 	
 
 	if(isset($_POST['insert']))
 	{
-		$cmhs->no_pendaftaran = $_POST['no_pendaftaran'];
+		
 		$cmhs->nama = $_POST['nama'];
 		$cmhs->tempat_lahir = $_POST['tempat_lahir'];
 		$cmhs->tgl_lahir = $_POST['tgl_lahir'];
@@ -21,16 +23,23 @@
 		$cmhs->no_ijazah = $_POST['no_ijazah'];
 		$cmhs->total_nilai_un = $_POST['total_nilai_un'];
 
-		if($cmhs->store())
+		$cmhs->store();
+
+		$pendaftaran->cmhs->id = $cmhs->getId($_POST['nama']);
+		$pendaftaran->user->id = $_SESSION['id'];
+		$pendaftaran->jurusan->id = $_POST['jurusan_id'];
+		$pendaftaran->jalur = $_POST['jalur'];
+
+		if($pendaftaran->store())
 		{
 			if($_POST['jalur'] == "reguler")
-				header('location:../view/dokumen/reguler_tambah?no_pendaftaran='.$cmhs->no_pendaftaran.'&id='.$cmhs->getId());
+				header('location:../view/dokumen/reguler_tambah?id='.$pendaftaran->getId($_SESSION['id']).'&jurusan='.$pendaftaran->jurusan->id);
 			if($_POST['jalur'] == "beasiswa")
-				header('location:../view/dokumen/beasiswa_tambah?no_pendaftaran='.$cmhs->no_pendaftaran.'&id='.$cmhs->getId());
+				header('location:../view/dokumen/beasiswa_tambah?id='.$pendaftaran->getId($_SESSION['id']).'&jurusan='.$pendaftaran->jurusan->id);
 			if($_POST['jalur'] == "transferd3")
-				header('location:../view/dokumen/transferD3_tambah?no_pendaftaran='.$cmhs->no_pendaftaran.'&id='.$cmhs->getId());
+				header('location:../view/dokumen/transferD3_tambah?id='.$pendaftaran->getId($_SESSION['id']).'&jurusan='.$pendaftaran->jurusan->id);
 			if($_POST['jalur'] == "transfers1")
-				header('location:../view/dokumen/transferS1_tambah?no_pendaftaran='.$cmhs->no_pendaftaran.'&id='.$cmhs->getId());
+				header('location:../view/dokumen/transferS1_tambah?&id='.$pendaftaran->getId($_SESSION['id']).'&jurusan='.$pendaftaran->jurusan->id);
 		}
 
 		else

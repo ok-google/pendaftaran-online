@@ -1,4 +1,10 @@
 <?php
+	require "../../config/koneksi.php";
+
+	if($_SESSION['username'] == NULL){
+		header("location:../auth/login.php");	
+	}
+
 	include "../app/header.php";
 ?>
 

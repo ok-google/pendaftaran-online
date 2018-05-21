@@ -24,7 +24,15 @@
 
         public function getId()
         {
-            return $this->db->lastInsertId();
+            $query = "SELECT * FROM dokumen WHERE ktp = ?";
+            $action = $this->db->prepare($query);
+            $value = array($this->ktp);
+
+            $action->execute($value);
+
+            $result = $action->fetchObject();
+
+            return $result->ID;
         }
 
 		public function store(){

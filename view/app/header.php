@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>Art Company.Ltd</title>
+		<title>ITATS</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta content="width=device-width, initial-scale=1" name="viewport">
@@ -32,7 +32,7 @@
 	      </li>
 	    </ul>
 	    <?php
-	  /*  	if($_SESSION['username'] != NULL)
+	   	if($_SESSION['username'] != NULL)
 	    	{
 	    		echo '<span class="navbar-brand">'.$_SESSION['username'].'</span>';
 	    		echo '<a class="btn btn-outline-success my-2 my-sm-0" href="../../controller/auth.controller.php?logout=1" >Logout</a>';
@@ -45,8 +45,7 @@
 	    	else
 	    	{
 	    		echo '<a class="btn btn-outline-success my-2 my-sm-0" href="register.php?register=true" >Register</a>';	
-	    	}
-	    */  
+	    	}  
 	    ?>
 	  </div>
 	</nav>

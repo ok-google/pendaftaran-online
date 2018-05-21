@@ -22,14 +22,22 @@
 			$this->db = $db;
 		}
 
-        public function getId()
+        public function getId($name)
         {
-            return $this->db->lastInsertId();
+            $query = "SELECT * FROM calon_mahasiswa WHERE nama = ?";
+            $action = $this->db->prepare($query);
+            $value = array($name);
+
+            $action->execute($value);
+
+            $result = $action->fetchObject();
+
+            return $result->ID;
         }
 
 		public function all()
 		{
-			$query = "SELECT * FROM calon_mahasiswa ORDER BY no_pendaftaran ASC";
+			$query = "SELECT * FROM calon_mahasiswa ORDER BY id ASC";
 			$action = $this->db->prepare($query);
 			$action->execute();
 
@@ -48,12 +56,11 @@
 
 		public function store()
 		{
-        	$query="INSERT INTO calon_mahasiswa(no_pendaftaran, nama, tempat_lahir, tgl_lahir, alamat, jk, no_ktp, no_kk,
+        	$query="INSERT INTO calon_mahasiswa(nama, tempat_lahir, tgl_lahir, alamat, jk, no_ktp, no_kk,
         						no_telp, asal, no_ijazah, total_nilai_un) 
-        						VALUES(?, ?, ?, to_date(?, 'yyyy-mm-dd'), ?, ?, ?, ?, ?, ?, ?, ?)";
+        						VALUES(?, ?, to_date(?, 'yyyy-mm-dd'), ?, ?, ?, ?, ?, ?, ?, ?)";
             $action = $this->db->prepare($query);
-            $value = array($this->no_pendaftaran, 
-            				$this->nama, 
+            $value = array($this->nama, 
             				$this->tempat_lahir, 
             				$this->tgl_lahir, 
             				$this->alamat, 
@@ -64,6 +71,7 @@
             				$this->asal, 
             				$this->no_ijazah, 
             				$this->total_nilai_un);
+
             $exec = $action->execute($value);
             
             if($exec){
@@ -79,11 +87,10 @@
 
         public function update()
         {
-        	$query="UPDATE calon_mahasiswa SET no_pendaftaran = ?, nama = ?, tempat_lahir = ?, tgl_lahir = to_date(?, 'yyyy-mm-dd'), alamat = ?, 
+        	$query="UPDATE calon_mahasiswa SET nama = ?, tempat_lahir = ?, tgl_lahir = to_date(?, 'yyyy-mm-dd'), alamat = ?, 
         			jk = ?, no_ktp = ?, no_kk = ?, no_telp = ?, asal = ?, no_ijazah = ?, total_nilai_un = ? WHERE id = ?";
             $action = $this->db->prepare($query);
-            $value = array($this->no_pendaftaran, 
-            				$this->nama, 
+            $value = array($this->nama, 
             				$this->tempat_lahir, 
             				$this->tgl_lahir, 
             				$this->alamat, 
