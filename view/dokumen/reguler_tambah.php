@@ -1,4 +1,6 @@
 <?php
+	require "../../config/koneksi.php";
+
 	include "../app/header.php";
 ?>
 

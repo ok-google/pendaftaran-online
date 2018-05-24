@@ -3,10 +3,11 @@
 	require "../config/koneksi.php";
 	//require "../class/CalonMahasiswa.class.php";
 	require "../class/Pendaftaran.class.php";
+	require "../class/kota.class.php";
 
 	$cmhs = new CalonMahasiswa(Database::connect());
 	$pendaftaran = new Pendaftaran(Database::connect());
-	
+	$kota = new Kota(Database::connect());
 
 	if(isset($_POST['insert']))
 	{
@@ -25,10 +26,16 @@
 
 		$cmhs->store();
 
+		$kota->cmhs_id = $cmhs->getId($_POST['nama']);
+		$kota->kota_id = $_POST['kota'];
+
+		$kota->store();
+
 		$pendaftaran->cmhs->id = $cmhs->getId($_POST['nama']);
 		$pendaftaran->user->id = $_SESSION['id'];
 		$pendaftaran->jurusan->id = $_POST['jurusan_id'];
 		$pendaftaran->jalur = $_POST['jalur'];
+
 
 		if($pendaftaran->store())
 		{

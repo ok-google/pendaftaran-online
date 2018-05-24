@@ -1,10 +1,14 @@
 <?php
 	require "../../config/koneksi.php";
 	require "../../class/jurusan.class.php";
+	require "../../class/kota.class.php";
 
 	$jurusan = new Jurusan(Database::connect());
+	$kota = new Kota(Database::connect());
 
 	$result = $jurusan->all();
+	$resultKota = $kota->all();
+
 
 	include "../app/header.php";
 ?>
@@ -63,6 +67,18 @@
 	    <label for="exampleInputEmail1">Alamat</label>
 	    <input type="text" class="form-control" name="alamat" placeholder="Masukan Alamat">
 	  </div>
+
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Kota</label>
+	    <select class="form-control select2-single" name="kota">
+	    	<option> -- Pilih Kota -- </option>
+	    	<?php 
+	    		while($value = $resultKota->fetchObject()){ 
+	    			echo '<option value='.$value->ID.'>'. $value->NAMA.' </option>';
+	    		}
+	    	?>
+	    </select>
+	  </div>	  
 
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Nomer KTP</label>
