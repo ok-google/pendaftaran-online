@@ -100,4 +100,22 @@ kota_id char(4)
 alter table kota_calon_mahasiswa add constraint fk_kota_cmhs__cmhs_id
 foreign key(calon_mahasiswa_id) references calon_mahasiswa(id);      
 alter table kota_calon_mahasiswa add constraint fk_kota_cmhs_kota_id 
-foreign key(kota_id) references kota(id);                                                                                                                                                                                                                                                                                                                       
+foreign key(kota_id) references kota(id);                            
+
+#Trigger
+create or replace trigger delete_pendaftaran                         
+before delete on calon_mahasiswa                                     
+for each row                                                         
+begin                                                                
+delete from pendaftaran where calon_mahasiswa_id = :old.id;          
+delete from kota_calon_mahasiswa where calon_mahasiswa_id = :old.id; 
+end;                                                                 
+
+create or replace trigger delete_verifikasi           
+before delete on pendaftaran                          
+for each row                                          
+begin                                                 
+delete from verifikasi where pendaftaran_id = :old.id;
+end;                                                  
+/                                                     
+/                                                                                                                                                                                                                                                                                                                                                               
