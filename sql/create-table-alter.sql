@@ -102,6 +102,13 @@ foreign key(calon_mahasiswa_id) references calon_mahasiswa(id);
 alter table kota_calon_mahasiswa add constraint fk_kota_cmhs_kota_id 
 foreign key(kota_id) references kota(id);                            
 
+#alter table jurusan
+alter table jurusan add biaya number(10);
+alter table jurusan add spp number(10);
+
+#alter dokumen
+alter table dokumen add foto varchar2(100);
+
 #Trigger
 create or replace trigger delete_pendaftaran                         
 before delete on calon_mahasiswa                                     
@@ -110,6 +117,7 @@ begin
 delete from pendaftaran where calon_mahasiswa_id = :old.id;          
 delete from kota_calon_mahasiswa where calon_mahasiswa_id = :old.id; 
 end;                                                                 
+/
 
 create or replace trigger delete_verifikasi           
 before delete on pendaftaran                          
@@ -117,5 +125,4 @@ for each row
 begin                                                 
 delete from verifikasi where pendaftaran_id = :old.id;
 end;                                                  
-/                                                     
-/                                                                                                                                                                                                                                                                                                                                                               
+/                                                                                                                                                                                                                                                                                                                                                                                                                    
