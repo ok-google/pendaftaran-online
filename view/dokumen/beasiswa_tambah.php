@@ -32,6 +32,11 @@
 	    <label for="exampleInputEmail1">Rapor Semester 1 - 5</label>
 	    <input type="file" class="form-control-file" name="rapot">
 	  </div>
+
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Foto</label>
+	    <input type="file" class="form-control-file" name="foto">
+	  </div>
 	  
 	  <button type="submit" name="beasiswa" value="beasiswa" class="btn btn-primary">Submit</button>
 	</form>

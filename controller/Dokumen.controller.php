@@ -13,13 +13,23 @@
 	if(isset($_POST['reguler']))
 	{
 		$dokumen->ijazah 	= $dokumen->storeIjazah($_FILES["ijazah"], $_POST['no_pendaftaran'], pathinfo($_FILES['ijazah']["name"],PATHINFO_EXTENSION));
-		$dokumen->kk 		= $dokumen->storeKK($_FILES["kk"], $_POST['no_pendaftaran'], pendafpathinfo($_FILES['kk']["name"],PATHINFO_EXTENSION));
+		$dokumen->kk 		= $dokumen->storeKK($_FILES["kk"], $_POST['no_pendaftaran'], pathinfo($_FILES['kk']["name"],PATHINFO_EXTENSION));
 		$dokumen->ktp 		= $dokumen->storeKTP($_FILES["ktp"], $_POST['no_pendaftaran'], pathinfo($_FILES['ktp']["name"],PATHINFO_EXTENSION));
+		$dokumen->foto 		= $dokumen->storeFoto($_FILES["foto"], $_POST['no_pendaftaran'], pathinfo($_FILES['foto']["name"],PATHINFO_EXTENSION));
 
 		$dokumen->store();
 
 		$pendaftaran->id = $_POST['id'];
 		$pendaftaran->dokumen->id = $dokumen->getId();
+		$pendaftaran->no_pendaftaran = $_POST['no_pendaftaran'];
+
+		$verifikasi->pendaftaran->id = $pendaftaran->id;
+		$verifikasi->data_cmhs = 'T';
+		$verifikasi->dokumen = 'T';
+		$verifikasi->transfer = 'T';
+		$verifikasi->terdaftar = 'T';
+
+		$verifikasi->store();
 
 		if($pendaftaran->setDokumen())
 		{
@@ -38,6 +48,7 @@
 		$dokumen->kk 		= $dokumen->storeKK($_FILES["kk"], $_POST['no_pendaftaran'], pathinfo($_FILES['kk']["name"],PATHINFO_EXTENSION));
 		$dokumen->ktp 		= $dokumen->storeKTP($_FILES["ktp"], $_POST['no_pendaftaran'], pathinfo($_FILES['ktp']["name"],PATHINFO_EXTENSION));
 		$dokumen->rapor 	= $dokumen->storeRapot($_FILES["rapot"], $_POST['no_pendaftaran'], pathinfo($_FILES['rapot']["name"],PATHINFO_EXTENSION));
+		$dokumen->foto 		= $dokumen->storeFoto($_FILES["foto"], $_POST['no_pendaftaran'], pathinfo($_FILES['foto']["name"],PATHINFO_EXTENSION));
 
 		$dokumen->store();
 
@@ -71,12 +82,19 @@
 		$dokumen->khs 		= $dokumen->storeKHS($_FILES["khs"], $_POST['no_pendaftaran'], pathinfo($_FILES['khs']["name"],PATHINFO_EXTENSION));
 		$dokumen->ket_pindah= $dokumen->storeKetPindah($_FILES["ket_pindah"], $_POST['no_pendaftaran'],
 														pathinfo($_FILES['ket_pindah']["name"],PATHINFO_EXTENSION));
+		$dokumen->foto 		= $dokumen->storeFoto($_FILES["foto"], $_POST['no_pendaftaran'], pathinfo($_FILES['foto']["name"],PATHINFO_EXTENSION));
 
 
 		$dokumen->store();
 
 		$pendaftaran->id = $_POST['id'];
 		$pendaftaran->dokumen->id = $dokumen->getId();
+
+		$verifikasi->pendaftaran->id = $pendaftaran->id;
+		$verifikasi->data_cmhs = 'T';
+		$verifikasi->dokumen = 'T';
+		$verifikasi->transfer = 'T';
+		$verifikasi->terdaftar = 'T';
 
 		if($pendaftaran->setDokumen())
 		{
@@ -97,11 +115,18 @@
 														pathinfo($_FILES['ijazah_d3']["name"],PATHINFO_EXTENSION));
 		$dokumen->transkrip	= $dokumen->storeTranskrip($_FILES["transkrip"], $_POST['no_pendaftaran'], 
 														pathinfo($_FILES['transkrip']["name"],PATHINFO_EXTENSION));
+		$dokumen->foto 		= $dokumen->storeFoto($_FILES["foto"], $_POST['no_pendaftaran'], pathinfo($_FILES['foto']["name"],PATHINFO_EXTENSION));
 
 		$dokumen->store();
 
 		$pendaftaran->id = $_POST['id'];
 		$pendaftaran->dokumen->id = $dokumen->getId();
+
+		$verifikasi->pendaftaran->id = $pendaftaran->id;
+		$verifikasi->data_cmhs = 'T';
+		$verifikasi->dokumen = 'T';
+		$verifikasi->transfer = 'T';
+		$verifikasi->terdaftar = 'T';
 
 		if($pendaftaran->setDokumen())
 		{

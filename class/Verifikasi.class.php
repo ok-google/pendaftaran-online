@@ -35,7 +35,7 @@ class Verifikasi {
 	public function update() {
 		$query = "UPDATE verifikasi SET data_cmhs = ?, dokumen = ?, transfer = ?, pendaftaran_id = ?, terdaftar = ? WHERE id = ?";
 		$action = $this->db->prepare($query);
-		$value = array($this->data_chms, $this->dokumen, $this->transfer, $this->pendaftaran->id, $this->terdaftar, $this->id);
+		$value = array($this->data_cmhs, $this->dokumen, $this->transfer, $this->pendaftaran->id, $this->terdaftar, $this->id);
 		$exec = $action->execute($value);
 
 		if ($exec) {
@@ -62,6 +62,23 @@ class Verifikasi {
 
 			return false;
 		}
+	}
+
+	public function verData()
+	{
+		$query = "UPDATE verifikasi SET data_cmhs = ? WHERE id = ?";
+		$action = $this->db->prepare($query);
+		$value = array($this->data_cmhs, $this->id);
+		$exec = $action->execute($value);
+
+		if ($exec) {
+			return true;
+		} else {
+			$errors = $action->errorInfo();
+			echo ($errors[2]);
+
+			return false;
+		}	
 	}
 
 }

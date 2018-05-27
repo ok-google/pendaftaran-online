@@ -15,6 +15,7 @@
         public $ijazah_d3;
         public $transkrip;
         public $bukti_transfer;
+        public $foto;
 
 
 		function __construct($db)
@@ -36,11 +37,11 @@
         }
 
 		public function store(){
-        	$query="INSERT INTO dokumen(ijazah, kk, ktp, rapor, ipk, khs, ket_pindah, ijazah_d3, transkrip, bukti_transfer) 
-                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        	$query="INSERT INTO dokumen(ijazah, kk, ktp, rapor, ipk, khs, ket_pindah, ijazah_d3, transkrip, bukti_transfer, foto) 
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $action = $this->db->prepare($query);
             $value = array($this->ijazah, $this->kk, $this->ktp, $this->rapor, $this->ipk, $this->khs, $this->ket_pindah, $this->ijazah_d3,
-                            $this->transkrip, $this->bukti_transfer);
+                            $this->transkrip, $this->bukti_transfer, $this->foto);
             $exec = $action->execute($value);
             
             if($exec){
@@ -56,10 +57,10 @@
 
         public function update(){
         	$query="UPDATE dokumen SET ijazah = ?, kk = ?, ktp = ?, rapor = ?, ipk = ?, khs = ?, ket_pindah = ?, ijazah_d3 = ?, 
-                    transkrip = ?, bukti_transfer = ? WHERE id = ?";
+                    transkrip = ?, bukti_transfer = ?, foto = ? WHERE id = ?";
             $action = $this->db->prepare($query);
             $value = array($this->ijazah, $this->kk, $this->ktp, $this->rapor, $this->ipk, $this->khs, $this->ket_pindah, $this->ijazah_d3,
-                            $this->transkrip, $this->bukti_transfer, $this->id);
+                            $this->transkrip, $this->bukti_transfer, $this->foto, $this->id);
             $exec = $action->execute($value);
             
             if($exec){
@@ -92,7 +93,7 @@
 
         public function storeIjazah($file, $no_pendaftaran, $path)
         {
-            $target_dir = '../file/Ijazah/';
+            $target_dir = '../file/ijazah/';
             $target_file = $target_dir.$no_pendaftaran.'_Ijazah.'.$path;
 
             move_uploaded_file($file["tmp_name"], $target_file);
@@ -184,6 +185,16 @@
         {
             $target_dir = '../file/Transfer/';
             $target_file = $target_dir.$no_pendaftaran.'_Transfer.'.$path;
+
+            move_uploaded_file($file["tmp_name"], $target_file);
+
+            return $target_file;
+        }
+
+        public function storeFoto($file, $no_pendaftaran, $path)
+        {
+            $target_dir = '../file/Foto/';
+            $target_file = $target_dir.$no_pendaftaran.'_Foto.'.$path;
 
             move_uploaded_file($file["tmp_name"], $target_file);
 

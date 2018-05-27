@@ -37,7 +37,10 @@
 
 		public function all()
 		{
-			$query = "SELECT * FROM calon_mahasiswa ORDER BY id ASC";
+			$query = "SELECT CMHS.NAMA NAMA_CMHS, CMHS.JK, CMHS.ASAL, CMHS.NO_IJAZAH, CMHS.TOTAL_NILAI_UN, JRS.NAMA NAMA_JURUSAN,
+                      PENDAFTARAN.NO_PENDAFTARAN, PENDAFTARAN.JALUR, CMHS.NO_TELP, CMHS.ID ID FROM CALON_MAHASISWA CMHS 
+                      INNER JOIN PENDAFTARAN ON (PENDAFTARAN.CALON_MAHASISWA_ID = CMHS.ID)
+                      INNER JOIN JURUSAN JRS ON (JRS.ID = PENDAFTARAN.JURUSAN_ID) ORDER BY PENDAFTARAN.ID ASC";
 			$action = $this->db->prepare($query);
 			$action->execute();
 

@@ -3,6 +3,10 @@
 	require "../../class/jurusan.class.php";
 	require "../../class/kota.class.php";
 
+	if($_SESSION['username'] == NULL){
+		header("location:../auth/login.php");	
+	}
+	
 	$jurusan = new Jurusan(Database::connect());
 	$kota = new Kota(Database::connect());
 
